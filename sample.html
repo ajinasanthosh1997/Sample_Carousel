@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .logo-container {
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            cursor: grab;
+        }
+
+        img {
+            margin-right: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container" id="logoContainer" onmousedown="startDrag(event)" onmouseup="stopDrag()">
+        <img src="./image/9 532.svg" alt="">
+        <img src="./image/8 1.svg" alt="">
+        <img src="./image/6 88.svg" alt="">
+        <img src="./image/3 1.svg" alt="">
+        <img src="./image/5 1.svg" alt="">
+        <img src="./image/2 41.svg" alt="">
+        <img src="./image/1 369.svg" alt="">
+        <img src="./image/4 51.svg" alt="">
+        <img src="./image/7 1.svg" alt="">
+
+    </div>
+
+    <script>
+        // Set the speed of the carousel
+        const speed = 2; // Adjust as needed
+
+        // Get the logo container element
+        const logoContainer = document.getElementById('logoContainer');
+
+        // Clone the logos and append to the container
+        const logos = logoContainer.innerHTML;
+        logoContainer.innerHTML += logos;
+
+        let isDragging = false;
+        let dragStartX = 0;
+
+        // Start dragging
+        function startDrag(event) {
+            isDragging = true;
+            dragStartX = event.clientX;
+        }
+
+        // Stop dragging
+        function stopDrag() {
+            isDragging = false;
+        }
+
+        // Scroll the container
+        function scroll() {
+            if (!isDragging) {
+                logoContainer.scrollLeft += speed;
+                if (logoContainer.scrollLeft >= logoContainer.scrollWidth / 2) {
+                    logoContainer.scrollLeft = 0;
+                }
+            }
+        }
+
+        // Set the interval for scrolling
+        setInterval(scroll, 30); // Adjust interval as needed
+
+        // Handle manual scrolling
+        logoContainer.addEventListener('mousemove', (event) => {
+            if (isDragging) {
+                const deltaX = event.clientX - dragStartX;
+                logoContainer.scrollLeft -= deltaX;
+                dragStartX = event.clientX;
+            }
+        });
+
+        logoContainer.addEventListener('mouseleave', stopDrag);
+        logoContainer.addEventListener('mouseup', stopDrag);
+    </script>
+</body>
+</html>
